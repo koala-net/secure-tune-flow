@@ -12,9 +12,9 @@ const Dashboard = () => {
   const [newTrackTitle, setNewTrackTitle] = useState("");
   const [newTrackIpfsHash, setNewTrackIpfsHash] = useState("");
   const [newTrackRoyaltyData, setNewTrackRoyaltyData] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [isLocalRegistering, setIsLocalRegistering] = useState(false);
   
-  const { registerMusic, isRegistering } = useSecureMusicFlow();
+  const { registerMusic, isRegistering: isContractRegistering } = useSecureMusicFlow();
   const { music } = useMusicData(1); // Get first track as example
   const { registerEncryptedMusic, generateKeyPair, isProcessing } = useEncryptedData();
 
@@ -24,7 +24,7 @@ const Dashboard = () => {
       return;
     }
     
-    setIsRegistering(true);
+    setIsLocalRegistering(true);
     try {
       // First generate encryption key if not exists
       await generateKeyPair();
@@ -43,7 +43,7 @@ const Dashboard = () => {
       console.error("Failed to register track:", err);
       alert("Failed to register track. Please try again.");
     } finally {
-      setIsRegistering(false);
+      setIsLocalRegistering(false);
     }
   };
 
@@ -207,12 +207,12 @@ const Dashboard = () => {
             </div>
             <button
               onClick={handleRegisterTrack}
-              disabled={isRegistering || isProcessing}
+              disabled={isLocalRegistering || isProcessing || isContractRegistering}
               className="w-full bg-accent text-accent-foreground px-4 py-2 rounded-md hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isRegistering || isProcessing ? "Encrypting & Registering..." : "🎵 Register Encrypted Track"}
+              {isLocalRegistering || isProcessing || isContractRegistering ? "Encrypting & Registering..." : "🎵 Register Encrypted Track"}
             </button>
-            {isRegistering && (
+            {(isLocalRegistering || isProcessing) && (
               <div className="mt-2 text-sm text-blue-500">
                 🔐 Encrypting your music data...
               </div>
