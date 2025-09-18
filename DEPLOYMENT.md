@@ -1,4 +1,4 @@
-# Secure Tune Flow - Vercel Deployment Guide
+# 🎵 MelodyVault - Deployment Guide
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@
 
 1. Go to [vercel.com](https://vercel.com) and sign in
 2. Click "New Project"
-3. Import your GitHub repository: `koala-net/secure-tune-flow`
+3. Import your GitHub repository: `your-username/your-repo-name`
 4. Select the repository and click "Import"
 
 ### Step 2: Configure Project Settings
@@ -32,17 +32,17 @@ Add the following environment variables in Vercel dashboard:
 
 ```bash
 # Blockchain Configuration
-NEXT_PUBLIC_CHAIN_ID=11155111
-NEXT_PUBLIC_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
+NEXT_PUBLIC_CHAIN_ID=your_chain_id
+NEXT_PUBLIC_RPC_URL=your_rpc_url
 
 # Wallet Connect Configuration
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id
 
-# Infura Configuration
-NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
+# API Configuration
+NEXT_PUBLIC_INFURA_API_KEY=your_api_key
 
 # Alternative RPC URL (backup)
-NEXT_PUBLIC_RPC_URL_BACKUP=https://1rpc.io/sepolia
+NEXT_PUBLIC_RPC_URL_BACKUP=your_backup_rpc_url
 ```
 
 #### How to Add Environment Variables in Vercel:
@@ -109,7 +109,7 @@ Your app will be available at: `https://secure-tune-flow-{random}.vercel.app`
    ```bash
    # Add to .env.local
    SEPOLIA_PRIVATE_KEY=your_private_key_here
-   NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
+   NEXT_PUBLIC_INFURA_API_KEY=your_api_key_here
    ```
 
 3. **Deploy Contracts**:

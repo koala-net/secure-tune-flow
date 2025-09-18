@@ -1,32 +1,21 @@
 const Logo = () => {
   return (
-    <div className="bg-gradient-primary p-2 rounded-lg">
+    <div className="bg-gradient-to-br from-purple-500 to-blue-600 p-2 rounded-lg">
       <svg 
         width="24" 
         height="24" 
         viewBox="0 0 24 24" 
         fill="none" 
-        className="text-primary-foreground"
+        className="text-white"
       >
-        {/* Musical note combined with blockchain/crypto elements */}
-        <path
-          d="M12 3L22 6v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V6l9-3z"
-          fill="currentColor"
-          fillOpacity="0.1"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        {/* Musical note */}
-        <circle cx="8" cy="16" r="2" fill="currentColor" />
-        <path d="M10 16V8l6-2v8" stroke="currentColor" strokeWidth="1.5" fill="none" />
-        <circle cx="16" cy="14" r="2" fill="currentColor" />
-        {/* Crypto/encryption elements */}
-        <path 
-          d="M12 7L15 9L12 11L9 9L12 7Z" 
-          fill="currentColor" 
-          fillOpacity="0.3"
-        />
-        <circle cx="12" cy="9" r="1" fill="currentColor" />
+        {/* Music Note Icon */}
+        <path d="M8 18C8 19.1046 8.89543 20 10 20C11.1046 20 12 19.1046 12 18C12 16.8954 11.1046 16 10 16C8.89543 16 8 16.8954 8 18Z" fill="currentColor"/>
+        <path d="M20 18C20 19.1046 20.8954 20 22 20C23.1046 20 24 19.1046 24 18C24 16.8954 23.1046 16 22 16C20.8954 16 20 16.8954 20 18Z" fill="currentColor"/>
+        <path d="M12 18V6L24 4V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8 18V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        {/* Decorative elements */}
+        <circle cx="6" cy="8" r="1" fill="currentColor" opacity="0.6"/>
+        <circle cx="18" cy="6" r="1" fill="currentColor" opacity="0.6"/>
       </svg>
     </div>
   );

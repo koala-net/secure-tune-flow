@@ -1,0 +1,7 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Music Note Icon -->
+  <path d="M8 24C8 25.1046 8.89543 26 10 26C11.1046 26 12 25.1046 12 24C12 22.8954 11.1046 22 10 22C8.89543 22 8 22.8954 8 24Z" fill="#6366F1"/>
+  <path d="M20 24C20 25.1046 20.8954 26 22 26C23.1046 26 24 25.1046 24 24C24 22.8954 23.1046 22 22 22C20.8954 22 20 22.8954 20 24Z" fill="#6366F1"/>
+  <path d="M12 24V8L24 6V22" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 24V12" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

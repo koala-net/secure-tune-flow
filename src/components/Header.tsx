@@ -16,8 +16,8 @@ const Header = () => {
         <Link to="/" className="flex items-center space-x-3">
           <Logo />
           <div>
-            <h1 className="text-xl font-bold text-foreground">Secure Tune Flow</h1>
-            <p className="text-xs text-muted-foreground">FHE Secured</p>
+            <h1 className="text-xl font-bold text-foreground">🎵 MelodyVault</h1>
+            <p className="text-xs text-muted-foreground">Music & Privacy</p>
           </div>
         </Link>
         
