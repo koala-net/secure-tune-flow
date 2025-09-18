@@ -1,11 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DollarSign, Shield, TrendingUp, Music } from "lucide-react";
+import { DollarSign, Shield, TrendingUp, Music, Plus } from "lucide-react";
 import RoyaltyCard from "./RoyaltyCard";
 import AudioWaveform from "./AudioWaveform";
+import { useRegisterMusicTrack, useGetMusicTrack } from "../hooks/useContract";
+import { useState } from "react";
 
 const Dashboard = () => {
+  const [newTrackTitle, setNewTrackTitle] = useState("");
+  const [newTrackIpfsHash, setNewTrackIpfsHash] = useState("");
+  const [newTrackRoyaltyData, setNewTrackRoyaltyData] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
+  
+  const { register, isPending, isConfirming, isConfirmed, error } = useRegisterMusicTrack();
+  const { musicTrack } = useGetMusicTrack(1); // Get first track as example
+
+  const handleRegisterTrack = async () => {
+    if (!newTrackTitle || !newTrackIpfsHash || !newTrackRoyaltyData) {
+      alert("Please fill in all fields");
+      return;
+    }
+    
+    setIsRegistering(true);
+    try {
+      await register(newTrackTitle, newTrackIpfsHash, newTrackRoyaltyData);
+    } catch (err) {
+      console.error("Failed to register track:", err);
+    } finally {
+      setIsRegistering(false);
+    }
+  };
+
   const mockRoyalties = [
     {
       songTitle: "Digital Dreams",
@@ -116,6 +142,73 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Register New Track Form */}
+        <Card className="bg-card/50 border-accent/30 mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Plus className="h-5 w-5 text-accent mr-2" />
+              Register New Music Track
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">
+                  Track Title
+                </label>
+                <input
+                  type="text"
+                  value={newTrackTitle}
+                  onChange={(e) => setNewTrackTitle(e.target.value)}
+                  placeholder="Enter track title"
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">
+                  IPFS Hash
+                </label>
+                <input
+                  type="text"
+                  value={newTrackIpfsHash}
+                  onChange={(e) => setNewTrackIpfsHash(e.target.value)}
+                  placeholder="Enter IPFS hash"
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">
+                  Encrypted Royalty Data
+                </label>
+                <input
+                  type="text"
+                  value={newTrackRoyaltyData}
+                  onChange={(e) => setNewTrackRoyaltyData(e.target.value)}
+                  placeholder="Enter encrypted royalty data"
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                />
+              </div>
+            </div>
+            <button
+              onClick={handleRegisterTrack}
+              disabled={isPending || isConfirming || isRegistering}
+              className="w-full bg-accent text-accent-foreground px-4 py-2 rounded-md hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isPending || isConfirming || isRegistering ? "Registering..." : "Register Track"}
+            </button>
+            {error && (
+              <div className="mt-2 text-sm text-red-500">
+                Error: {error.message}
+              </div>
+            )}
+            {isConfirmed && (
+              <div className="mt-2 text-sm text-green-500">
+                Track registered successfully!
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Tabs for different views */}
         <Tabs defaultValue="overview" className="w-full">

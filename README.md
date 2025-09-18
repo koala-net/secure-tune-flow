@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# Secure Tune Flow
 
-## Project info
+A decentralized music platform with FHE (Fully Homomorphic Encryption) security for protecting sensitive music data and royalty information.
 
-**URL**: https://lovable.dev/projects/f89297bc-902f-481e-9cdf-42638d802da7
+## Features
 
-## How can I edit this code?
+- **FHE Encryption**: Core music data and royalty information are encrypted using Fully Homomorphic Encryption
+- **Wallet Integration**: Connect with popular wallets like Rainbow, MetaMask, and more
+- **Decentralized Storage**: Music files and metadata stored on IPFS
+- **Smart Contracts**: Automated royalty distribution and licensing
+- **Real-time Analytics**: Dashboard for tracking music performance and earnings
 
-There are several ways of editing your application.
+## Technologies Used
 
-**Use Lovable**
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS
+- **UI Components**: shadcn/ui, Radix UI
+- **Blockchain**: Ethereum, Sepolia Testnet
+- **Wallet**: RainbowKit, Wagmi, Viem
+- **Encryption**: FHE (Fully Homomorphic Encryption)
+- **Storage**: IPFS for decentralized file storage
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f89297bc-902f-481e-9cdf-42638d802da7) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ installed
+- npm or yarn package manager
+- Git
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+```bash
+git clone https://github.com/koala-net/secure-tune-flow.git
+cd secure-tune-flow
+```
 
-Follow these steps:
+2. Install dependencies:
+```bash
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Create environment file:
+```bash
+cp .env.example .env.local
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. Configure environment variables:
+```env
+NEXT_PUBLIC_CHAIN_ID=11155111
+NEXT_PUBLIC_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
+NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+5. Start development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Smart Contracts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The platform includes smart contracts for:
+- Music licensing and distribution
+- Automated royalty payments
+- FHE-encrypted data storage
+- Decentralized governance
 
-**Use GitHub Codespaces**
+## Security
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- All sensitive data is encrypted using FHE
+- Smart contracts are audited for security
+- Decentralized storage prevents single points of failure
+- Wallet-based authentication
 
-## What technologies are used for this project?
+## Deployment
 
-This project is built with:
+### Vercel Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
-## How can I deploy this project?
+### Manual Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/f89297bc-902f-481e-9cdf-42638d802da7) and click on Share -> Publish.
+```bash
+npm run build
+npm run preview
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Contributing
 
-Yes, you can!
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+MIT License - see LICENSE file for details

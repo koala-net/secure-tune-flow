@@ -1,0 +1,34 @@
+{
+  "name": "secure-tune-flow-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Secure Tune Flow - FHE encrypted music platform",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "verify:mainnet": "hardhat verify --network mainnet",
+    "coverage": "hardhat coverage",
+    "gas-report": "REPORT_GAS=true hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "music",
+    "fhe",
+    "encryption",
+    "smart-contracts"
+  ],
+  "author": "Secure Tune Flow Team",
+  "license": "MIT"
+}

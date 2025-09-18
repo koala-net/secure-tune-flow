@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Wallet, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Logo from "./Logo";
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
         <Link to="/" className="flex items-center space-x-3">
           <Logo />
           <div>
-            <h1 className="text-xl font-bold text-foreground">CryptoBeats</h1>
+            <h1 className="text-xl font-bold text-foreground">Secure Tune Flow</h1>
             <p className="text-xs text-muted-foreground">FHE Secured</p>
           </div>
         </Link>
@@ -42,10 +43,106 @@ const Header = () => {
 
         {/* Wallet Button & Mobile Menu */}
         <div className="flex items-center space-x-4">
-          <Button variant="outline" className="bg-gradient-primary border-accent/50 text-accent-foreground hover:bg-accent/20 glow-accent">
-            <Wallet className="h-4 w-4 mr-2" />
-            Connect Wallet
-          </Button>
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== 'loading';
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === 'authenticated');
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    'style': {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <Button 
+                          onClick={openConnectModal} 
+                          variant="outline" 
+                          className="bg-gradient-primary border-accent/50 text-accent-foreground hover:bg-accent/20 glow-accent"
+                        >
+                          <Wallet className="h-4 w-4 mr-2" />
+                          Connect Wallet
+                        </Button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <Button onClick={openChainModal} variant="outline" className="bg-red-500/10 border-red-500/50 text-red-500 hover:bg-red-500/20">
+                          Wrong network
+                        </Button>
+                      );
+                    }
+
+                    return (
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          onClick={openChainModal}
+                          variant="outline"
+                          className="bg-gradient-primary border-accent/50 text-accent-foreground hover:bg-accent/20"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              style={{
+                                background: chain.iconBackground,
+                                width: 12,
+                                height: 12,
+                                borderRadius: 999,
+                                overflow: 'hidden',
+                                marginRight: 4,
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <img
+                                  alt={chain.name ?? 'Chain icon'}
+                                  src={chain.iconUrl}
+                                  style={{ width: 12, height: 12 }}
+                                />
+                              )}
+                            </div>
+                          )}
+                          {chain.name}
+                        </Button>
+
+                        <Button
+                          onClick={openAccountModal}
+                          variant="outline"
+                          className="bg-gradient-primary border-accent/50 text-accent-foreground hover:bg-accent/20"
+                        >
+                          {account.displayName}
+                          {account.displayBalance
+                            ? ` (${account.displayBalance})`
+                            : ''}
+                        </Button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
           
           {/* Mobile menu button */}
           <button
