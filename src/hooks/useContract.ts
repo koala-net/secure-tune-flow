@@ -1,4 +1,4 @@
-import { useContract, useContractRead, useContractWrite, useAccount } from 'wagmi';
+import { useReadContract, useWriteContract, useAccount } from 'wagmi';
 import { useMemo } from 'react';
 
 // Contract addresses (these should be set after deployment)
@@ -108,82 +108,89 @@ const FHE_ENCRYPTION_ABI = [
 export const useSecureMusicFlow = () => {
   const { address } = useAccount();
   
-  const contract = useContract({
-    address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
-    abi: SECURE_MUSIC_FLOW_ABI,
-  });
-
-  const { data: totalMusic, refetch: refetchTotalMusic } = useContractRead({
+  const { data: totalMusic, refetch: refetchTotalMusic } = useReadContract({
     address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
     abi: SECURE_MUSIC_FLOW_ABI,
     functionName: 'getTotalMusic',
   });
 
-  const registerMusic = useContractWrite({
-    address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
-    abi: SECURE_MUSIC_FLOW_ABI,
-    functionName: 'registerMusic',
-  });
+  const { writeContract: writeContract, isPending: isRegistering } = useWriteContract();
 
-  const purchaseLicense = useContractWrite({
-    address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
-    abi: SECURE_MUSIC_FLOW_ABI,
-    functionName: 'purchaseLicense',
-  });
+  const registerMusic = (encryptedMetadata: string, ipfsHash: string, recipients: string[], percentages: number[]) => {
+    writeContract({
+      address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
+      abi: SECURE_MUSIC_FLOW_ABI,
+      functionName: 'registerMusic',
+      args: [encryptedMetadata, ipfsHash, recipients, percentages],
+    });
+  };
+
+  const purchaseLicense = (musicId: number, licenseType: number, validUntil: number, value?: bigint) => {
+    writeContract({
+      address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
+      abi: SECURE_MUSIC_FLOW_ABI,
+      functionName: 'purchaseLicense',
+      args: [BigInt(musicId), BigInt(licenseType), BigInt(validUntil)],
+      value: value,
+    });
+  };
 
   return {
-    contract,
     totalMusic,
     refetchTotalMusic,
     registerMusic,
     purchaseLicense,
+    isRegistering,
   };
 };
 
 export const useFHEEncryption = () => {
   const { address } = useAccount();
   
-  const contract = useContract({
-    address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
-    abi: FHE_ENCRYPTION_ABI,
-  });
-
-  const { data: userKeyPair, refetch: refetchUserKeyPair } = useContractRead({
+  const { data: userKeyPair, refetch: refetchUserKeyPair } = useReadContract({
     address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
     abi: FHE_ENCRYPTION_ABI,
     functionName: 'getUserKeyPair',
     args: address ? [address] : undefined,
-    enabled: !!address,
+    query: { enabled: !!address },
   });
 
-  const generateKeyPair = useContractWrite({
-    address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
-    abi: FHE_ENCRYPTION_ABI,
-    functionName: 'generateFHEKeyPair',
-  });
+  const { writeContract: writeContract, isPending: isProcessing } = useWriteContract();
 
-  const encryptData = useContractWrite({
-    address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
-    abi: FHE_ENCRYPTION_ABI,
-    functionName: 'encryptData',
-  });
+  const generateKeyPair = (publicKey: string, privateKeyHash: string) => {
+    writeContract({
+      address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
+      abi: FHE_ENCRYPTION_ABI,
+      functionName: 'generateFHEKeyPair',
+      args: [publicKey, privateKeyHash],
+    });
+  };
+
+  const encryptData = (data: string, dataHash: string, encryptedData: string) => {
+    writeContract({
+      address: FHE_ENCRYPTION_ADDRESS as `0x${string}`,
+      abi: FHE_ENCRYPTION_ABI,
+      functionName: 'encryptData',
+      args: [data, dataHash, encryptedData],
+    });
+  };
 
   return {
-    contract,
     userKeyPair,
     refetchUserKeyPair,
     generateKeyPair,
     encryptData,
+    isProcessing,
   };
 };
 
 export const useMusicData = (musicId: number) => {
-  const { data: music, refetch: refetchMusic } = useContractRead({
+  const { data: music, refetch: refetchMusic } = useReadContract({
     address: SECURE_MUSIC_FLOW_ADDRESS as `0x${string}`,
     abi: SECURE_MUSIC_FLOW_ABI,
     functionName: 'getMusic',
     args: musicId ? [BigInt(musicId)] : undefined,
-    enabled: !!musicId,
+    query: { enabled: !!musicId },
   });
 
   return {
