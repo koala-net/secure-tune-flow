@@ -75,18 +75,74 @@ The platform includes smart contracts for:
 
 ## Deployment
 
-### Vercel Deployment
+### Quick Deploy to Vercel
 
-1. Connect your GitHub repository to Vercel
-2. Configure environment variables in Vercel dashboard
-3. Deploy automatically on push to main branch
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/koala-net/secure-tune-flow)
 
-### Manual Deployment
+### Manual Vercel Deployment
 
-```bash
-npm run build
-npm run preview
-```
+1. **Connect Repository**:
+   ```bash
+   # Push to GitHub first
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository: `koala-net/secure-tune-flow`
+   - Configure environment variables (see below)
+   - Deploy!
+
+3. **Required Environment Variables**:
+   ```env
+   # Blockchain Configuration
+   NEXT_PUBLIC_CHAIN_ID=11155111
+   NEXT_PUBLIC_RPC_URL=https://sepolia.infura.io/v3/b18fb7e6ca7045ac83c41157ab93f990
+   
+   # Wallet Connect Configuration
+   NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=2ec9743d0d0cd7fb94dee1a7e6d33475
+   
+   # Infura Configuration
+   NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
+   
+   # Alternative RPC URL (backup)
+   NEXT_PUBLIC_RPC_URL_BACKUP=https://1rpc.io/sepolia
+   ```
+
+### Smart Contract Deployment
+
+1. **Install Hardhat Dependencies**:
+   ```bash
+   cd contracts
+   npm install
+   ```
+
+2. **Configure Environment**:
+   ```bash
+   # Add to .env.local
+   SEPOLIA_PRIVATE_KEY=your_private_key_here
+   NEXT_PUBLIC_INFURA_API_KEY=b18fb7e6ca7045ac83c41157ab93f990
+   ```
+
+3. **Deploy Contracts**:
+   ```bash
+   npx hardhat run scripts/deploy.js --network sepolia
+   ```
+
+4. **Update Contract Address**:
+   - Copy the deployed contract address
+   - Update `src/hooks/useContract.ts` with the new address
+
+### Detailed Deployment Guide
+
+For comprehensive deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### Alternative Deployment Options
+
+- **Netlify**: Static site hosting with form handling
+- **AWS S3 + CloudFront**: Scalable cloud hosting
+- **GitHub Pages**: Free hosting for open source projects
+- **Firebase Hosting**: Google's hosting platform
 
 ## Contributing
 
