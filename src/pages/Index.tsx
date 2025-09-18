@@ -1,7 +1,6 @@
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import SecuritySection from "../components/SecuritySection";
-import Dashboard from "../components/Dashboard";
 
 const Index = () => {
   return (
@@ -9,7 +8,6 @@ const Index = () => {
       <Header />
       <HeroSection />
       <SecuritySection />
-      <Dashboard />
     </div>
   );
 };

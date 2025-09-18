@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Shield, Play, DollarSign } from "lucide-react";
+import { Play, DollarSign } from "lucide-react";
 import AudioWaveform from "./AudioWaveform";
 import heroWaveform from "@/assets/hero-waveform.jpg";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -17,11 +18,6 @@ const HeroSection = () => {
       
       <div className="relative container mx-auto px-4 py-24 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Floating Shield Icon */}
-          <div className="mb-8">
-            <Shield className="h-16 w-16 text-accent mx-auto animate-float glow-accent" />
-          </div>
-          
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
             <span className="bg-gradient-primary bg-clip-text text-transparent">
@@ -44,10 +40,12 @@ const HeroSection = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-gradient-royalty text-royalty-foreground hover:opacity-90 glow-royalty min-w-48">
-              <DollarSign className="h-5 w-5 mr-2" />
-              Start Earning Secure Royalties
-            </Button>
+            <Link to="/dashboard">
+              <Button size="lg" className="bg-gradient-royalty text-royalty-foreground hover:opacity-90 glow-royalty min-w-48">
+                <DollarSign className="h-5 w-5 mr-2" />
+                Start Earning Secure Royalties
+              </Button>
+            </Link>
             
             <Button variant="outline" size="lg" className="border-accent text-accent hover:bg-accent/20 min-w-48">
               <Play className="h-5 w-5 mr-2" />
